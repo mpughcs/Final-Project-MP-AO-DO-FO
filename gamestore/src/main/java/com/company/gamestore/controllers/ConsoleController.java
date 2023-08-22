@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,4 +50,16 @@ public class ConsoleController {
         repo.deleteById(id);
     }
 
+//    findByManufacturer
+    @GetMapping("/consoles/manufacturer/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Console> findByManufacturer(@PathVariable String name){
+        List<Console> toReturn = new ArrayList<>();
+        for(Console console : repo.findAll()){
+            if (console.getManufacturer().equals(name)){
+                toReturn.add(console);
+            }
+        }
+        return toReturn;
+    }
 }
