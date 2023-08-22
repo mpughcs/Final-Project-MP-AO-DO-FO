@@ -1,4 +1,8 @@
 package com.company.gamestore.repositories;
 
-public class GameRepo {
+import com.company.gamestore.models.Game;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GameRepo extends JpaRepository<Game, Long> {
+    // Add custom query methods here if needed
 }
