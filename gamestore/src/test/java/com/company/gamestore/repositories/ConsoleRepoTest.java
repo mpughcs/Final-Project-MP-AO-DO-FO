@@ -69,5 +69,13 @@ class ConsoleRepoTest {
 
     }
 
+    @Test
+    void shouldGetConsoleByManufacturer(){
+        testConsole=repo.save(testConsole);
+        List<Console> microsoftConsoles=new ArrayList<>();
+        microsoftConsoles.add(testConsole);
+        assertEquals(microsoftConsoles, repo.findByManufacturer("Microsoft"));
+    }
+
 
 }
