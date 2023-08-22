@@ -1,38 +1,46 @@
 package com.company.gamestore.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@Table(name = "game")
 public class Game {
 
     @Id
+    @Column(name = "game_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long game_id;
 
     private String title;
+    private String esrb_rating;
+    private String description;
+    private double price;
     private String studio;
-    private String esrbRating;
+    private int quantity;
 
     // Constructors
     public Game() {
     }
 
-    public Game(String title, String studio, String esrbRating) {
+    public Game(String title, String esrb_rating, String description, double price, String studio, int quantity) {
         this.title = title;
+        this.esrb_rating = esrb_rating;
+        this.description = description;
+        this.price = price;
         this.studio = studio;
-        this.esrbRating = esrbRating;
+        this.quantity = quantity;
     }
 
     // Getters and Setters
-    public Long getId() {
-        return id;
+    public Long getGame_id() {
+        return game_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setGame_id(Long game_id) {
+        this.game_id = game_id;
     }
 
     public String getTitle() {
@@ -43,6 +51,30 @@ public class Game {
         this.title = title;
     }
 
+    public String getEsrb_rating() {
+        return esrb_rating;
+    }
+
+    public void setEsrb_rating(String esrb_rating) {
+        this.esrb_rating = esrb_rating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public String getStudio() {
         return studio;
     }
@@ -51,22 +83,25 @@ public class Game {
         this.studio = studio;
     }
 
-    public String getEsrbRating() {
-        return esrbRating;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setEsrbRating(String esrbRating) {
-        this.esrbRating = esrbRating;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     // Override toString method for better debugging and logging
     @Override
     public String toString() {
         return "Game{" +
-                "id=" + id +
+                "game_id=" + game_id +
                 ", title='" + title + '\'' +
+                ", esrb_rating='" + esrb_rating + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
                 ", studio='" + studio + '\'' +
-                ", esrbRating='" + esrbRating + '\'' +
+                ", quantity=" + quantity +
                 '}';
     }
 }

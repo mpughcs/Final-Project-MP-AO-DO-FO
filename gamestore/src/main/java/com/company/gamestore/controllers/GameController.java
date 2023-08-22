@@ -19,9 +19,9 @@ public class GameController {
         return gameRepo.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Game getGameById(@PathVariable Long id) {
-        return gameRepo.findById(id).orElse(null);
+    @GetMapping("/{game_id}")
+    public Game getGameById(@PathVariable Long game_id) {
+        return gameRepo.findById(game_id).orElse(null);
     }
 
     @PostMapping
@@ -29,18 +29,18 @@ public class GameController {
         return gameRepo.save(game);
     }
 
-    @PutMapping("/{id}")
-    public Game updateGame(@PathVariable Long id, @RequestBody Game game) {
-        if (gameRepo.existsById(id)) {
-            game.setId(id);
+    @PutMapping("/{game_id}")
+    public Game updateGame(@PathVariable Long game_id, @RequestBody Game game) {
+        if (gameRepo.existsById(game_id)) {
+            game.setGame_id(game_id);
             return gameRepo.save(game);
         } else {
-            return null; // Handle not found
+            return null; 
         }
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteGame(@PathVariable Long id) {
-        gameRepo.deleteById(id);
+    @DeleteMapping("/{game_id}")
+    public void deleteGame(@PathVariable Long game_id) {
+        gameRepo.deleteById(game_id);
     }
 }
