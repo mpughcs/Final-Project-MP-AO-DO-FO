@@ -4,6 +4,9 @@ package com.company.gamestore.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -16,15 +19,22 @@ public class Console {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotEmpty(message = "Console requires field Model")
     private String model;
 
+
+    @NotEmpty(message = "Console requires field Manufacturer ")
     private String manufacturer;
+
 
     @Column(name = "memory_amount")
     private String memoryAmount;
 
-    private String processor;
 
+    private String processor;
+    @NotEmpty(message = "Console requires field Price")
+    @DecimalMin(value = "0.00", inclusive = true, message = "Console price cannot be below 0")
+    @DecimalMax(value = "999.99", message = "Console price cannot be above 999.99")
     private BigDecimal price;
 
     private int quantity;
