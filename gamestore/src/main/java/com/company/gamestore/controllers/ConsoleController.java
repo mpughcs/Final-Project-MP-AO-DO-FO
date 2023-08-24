@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public class ConsoleController {
 //    Create mapping
     @PostMapping("/consoles")
     @ResponseStatus(HttpStatus.CREATED)
-    public Console addConsole(@RequestBody Console toAdd){return repo.save(toAdd);}
+    public Console addConsole(@RequestBody @Valid Console toAdd){return repo.save(toAdd);}
 
 
 //    Read and Read all mappings

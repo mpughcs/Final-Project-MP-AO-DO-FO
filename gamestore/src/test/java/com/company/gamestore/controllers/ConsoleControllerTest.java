@@ -30,6 +30,7 @@ class ConsoleControllerTest {
     @Autowired
     private ConsoleRepo repo;
 
+
     Console c = new Console("XboxOne","Microsoft","16gb","I7",new BigDecimal("499.99"),100);
 
     String inputJson;

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -32,7 +33,8 @@ public class Console {
 
 
     private String processor;
-    @NotEmpty(message = "Console requires field Price")
+
+    @NotNull
     @DecimalMin(value = "0.00", inclusive = true, message = "Console price cannot be below 0")
     @DecimalMax(value = "999.99", message = "Console price cannot be above 999.99")
     private BigDecimal price;
