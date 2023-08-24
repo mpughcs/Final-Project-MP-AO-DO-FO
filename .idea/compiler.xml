@@ -10,10 +10,6 @@
         <module name="authorization-service" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="authorization-service" target="11" />
-      <module name="gamestore" target="11" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

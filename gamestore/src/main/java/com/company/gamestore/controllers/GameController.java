@@ -20,7 +20,7 @@ public class GameController {
     }
 
     @GetMapping("/{game_id}")
-    public Game getGameById(@PathVariable Long game_id) {
+    public Game getGameById(@PathVariable int game_id) {
         return gameRepo.findById(game_id).orElse(null);
     }
 
@@ -30,9 +30,9 @@ public class GameController {
     }
 
     @PutMapping("/{game_id}")
-    public Game updateGame(@PathVariable Long game_id, @RequestBody Game game) {
+    public Game updateGame(@PathVariable int game_id, @RequestBody Game game) {
         if (gameRepo.existsById(game_id)) {
-            game.setGame_id(game_id);
+            game.setId(game_id);
             return gameRepo.save(game);
         } else {
             return null;
@@ -40,7 +40,7 @@ public class GameController {
     }
 
     @DeleteMapping("/{game_id}")
-    public void deleteGame(@PathVariable Long game_id) {
+    public void deleteGame(@PathVariable int game_id) {
         gameRepo.deleteById(game_id);
     }
 }
