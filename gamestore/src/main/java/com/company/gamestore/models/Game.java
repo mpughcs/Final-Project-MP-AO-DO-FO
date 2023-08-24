@@ -3,6 +3,7 @@ package com.company.gamestore.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
@@ -12,12 +13,12 @@ public class Game {
     @Id
     @Column(name = "game_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long game_id;
+    private int game_id;
 
     private String title;
     private String esrb_rating;
     private String description;
-    private double price;
+    private BigDecimal price;
     private String studio;
     private int quantity;
 
@@ -25,7 +26,7 @@ public class Game {
     public Game() {
     }
 
-    public Game(String title, String esrb_rating, String description, double price, String studio, int quantity) {
+    public Game(String title, String esrb_rating, String description, BigDecimal price, String studio, int quantity) {
         this.title = title;
         this.esrb_rating = esrb_rating;
         this.description = description;
@@ -35,11 +36,11 @@ public class Game {
     }
 
     // Getters and Setters
-    public Long getGame_id() {
+    public int getGame_id() {
         return game_id;
     }
 
-    public void setGame_id(Long game_id) {
+    public void setGame_id(int game_id) {
         this.game_id = game_id;
     }
 
@@ -67,11 +68,11 @@ public class Game {
         this.description = description;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
