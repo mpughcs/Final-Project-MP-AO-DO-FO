@@ -16,8 +16,6 @@ public class Game {
     private int game_id;
 
     private String title;
-
-    @Column(name = "esrb_rating")
     private String esrb_rating;
     private String description;
     private BigDecimal price;
@@ -28,24 +26,21 @@ public class Game {
     public Game() {
     }
 
-    public Game(String title, String esrb_rating, String description, double price, String studio, int quantity) {
+    public Game(String title, String esrb_rating, String description, BigDecimal price, String studio, int quantity) {
         this.title = title;
         this.esrb_rating = esrb_rating;
         this.description = description;
-        this.price = BigDecimal.valueOf(price);
+        this.price = price;
         this.studio = studio;
         this.quantity = quantity;
     }
 
-    public Game(String testGame, String e, String description, BigDecimal bigDecimal, String studio, int quantity) {
-    }
-
     // Getters and Setters
-    public int getId() {
+    public int getGame_id() {
         return game_id;
     }
 
-    public void setId(int game_id) {
+    public void setGame_id(int game_id) {
         this.game_id = game_id;
     }
 
@@ -77,8 +72,8 @@ public class Game {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = BigDecimal.valueOf(price);
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getStudio() {

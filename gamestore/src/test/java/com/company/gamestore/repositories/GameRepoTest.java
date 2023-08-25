@@ -1,6 +1,7 @@
 package com.company.gamestore.repositories;
 
 import com.company.gamestore.models.Game;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,12 +15,18 @@ public class GameRepoTest {
     @Autowired
     private GameRepo gameRepo;
 
+    @BeforeEach
+    void setUp() {
+        gameRepo.deleteAll();
+    }
+
+
     @Test
     public void testSaveGame() throws Exception{
         Game game = new Game("Test Game", "E", "Description", new BigDecimal("49.99"), "Studio", 10);
         gameRepo.save(game);
 
-        assertThat(game.getId()).isNotNull();
+        assertThat(game.getGame_id()).isNotNull();
     }
 
     @Test
@@ -27,7 +34,7 @@ public class GameRepoTest {
         Game game = new Game("Test Game", "E", "Description", new BigDecimal("49.99"), "Studio", 10);
         game = gameRepo.save(game);
 
-        Game retrievedGame = gameRepo.findById(game.getId()).orElse(null);
+        Game retrievedGame = gameRepo.findById(game.getGame_id()).orElse(null);
         assertThat(retrievedGame).isNotNull();
         assertThat(retrievedGame.getTitle()).isEqualTo("Test Game");
     }
@@ -40,7 +47,7 @@ public class GameRepoTest {
         game.setTitle("Updated Title");
         gameRepo.save(game);
 
-        Game updatedGame = gameRepo.findById(game.getId()).orElse(null);
+        Game updatedGame = gameRepo.findById(game.getGame_id()).orElse(null);
         assertThat(updatedGame).isNotNull();
         assertThat(updatedGame.getTitle()).isEqualTo("Updated Title");
     }
@@ -50,9 +57,9 @@ public class GameRepoTest {
         Game game = new Game("Test Game", "E", "Description", new BigDecimal("49.99"), "Studio", 10);
         game = gameRepo.save(game);
 
-        gameRepo.deleteById(game.getId());
+        gameRepo.deleteById(game.getGame_id());
 
-        assertThat(gameRepo.findById(game.getId())).isEmpty();
+        assertThat(gameRepo.findById(game.getGame_id())).isEmpty();
     }
 
     @Test

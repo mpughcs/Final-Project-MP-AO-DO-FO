@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class GameControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -58,7 +58,7 @@ class GameControllerTest {
     @Test
     void shouldGetGameById() throws Exception {
         repo.save(game);
-        mockMvc.perform(get("/games/{id}", game.getId()))
+        mockMvc.perform(get("/games/{id}", game.getGame_id()))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -67,7 +67,7 @@ class GameControllerTest {
     void shouldUpdateGame() throws Exception {
         repo.save(game);
         mockMvc.perform(
-                        put("/games/{id}", game.getId())
+                        put("/games/{id}", game.getGame_id())
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
@@ -78,7 +78,7 @@ class GameControllerTest {
     @Test
     void shouldDeleteGame() throws Exception {
         repo.save(game);
-        mockMvc.perform(delete("/games/{id}", game.getId()))
+        mockMvc.perform(delete("/games/{id}", game.getGame_id()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
