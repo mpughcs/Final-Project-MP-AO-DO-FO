@@ -1,37 +1,46 @@
 package com.company.gamestore.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="invoice_id")
     private Long id;
     private String name;
     private String street;
     private String city;
     private String state;
-    private String zip;
-    private String itemType;
-    private Long itemId;
+    private String zipcode;
+    private String item_type;
+    private Integer item_id;
     private Integer quantity;
+    private Long unit_price;
+
+    private Long subtotal;
+    private Long tax;
+    private Long processing_fee;
+    private Long total;
 
     public Invoice() {
     }
 
-    public Invoice(String name, String street, String city, String state, String zip, String itemType, Long itemId, Integer quantity) {
+    public Invoice(String name, String street, String city, String state, String zipcode, String item_type, Integer item_id, Integer quantity, Long unit_price, Long subtotal, Long tax, Long processing_fee, Long total) {
         this.name = name;
         this.street = street;
         this.city = city;
         this.state = state;
-        this.zip = zip;
-        this.itemType = itemType;
-        this.itemId = itemId;
+        this.zipcode = zipcode;
+        this.item_type = item_type;
+        this.item_id = item_id;
         this.quantity = quantity;
+        this.unit_price = unit_price;
+        this.subtotal = subtotal;
+        this.tax = tax;
+        this.processing_fee = processing_fee;
+        this.total = total;
     }
 
     public Long getId() {
@@ -75,27 +84,27 @@ public class Invoice {
     }
 
     public String getZip() {
-        return zip;
+        return zipcode;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setZip(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getItemType() {
-        return itemType;
+        return item_type;
     }
 
-    public void setItemType(String itemType) {
-        this.itemType = itemType;
+    public void setItemType(String item_type) {
+        this.item_type = item_type;
     }
 
-    public Long getItemId() {
-        return itemId;
+    public Integer getItemId() {
+        return item_id;
     }
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
+    public void setItemId(Integer item_id) {
+        this.item_id = item_id;
     }
 
     public Integer getQuantity() {
@@ -114,10 +123,15 @@ public class Invoice {
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
-                ", itemType='" + itemType + '\'' +
-                ", itemId=" + itemId +
+                ", zipcode='" + zipcode + '\'' +
+                ", item_type='" + item_type + '\'' +
+                ", item_id=" + item_id +
                 ", quantity=" + quantity +
+                ", unit_price=" + unit_price +
+                ", subtotal=" + subtotal +
+                ", tax=" + tax +
+                ", processing_fee=" + processing_fee +
+                ", total=" + total +
                 '}';
     }
 }
