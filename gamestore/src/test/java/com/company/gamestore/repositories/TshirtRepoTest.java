@@ -44,7 +44,7 @@ class TshirtRepoTest {
     }
 
     @Test
-    public void shouldGetAllTshirts(){
+    public void shouldGetAllTshirts() throws Exception{
         //Set up
         Tshirt tshirt = new Tshirt();
         tshirt.setSize("medium");
@@ -55,25 +55,28 @@ class TshirtRepoTest {
 
         //Save T-shirt
 
-        tshirtRepo.save(tshirt);
+        tshirt=tshirtRepo.save(tshirt);
 
         //Set up
         Tshirt tshirt2 = new Tshirt();
-        tshirt.setSize("large");
-        tshirt.setColor("blue");
-        tshirt.setDescription("pretty shirt");
-        tshirt.setPrice(new BigDecimal("200.00"));
-        tshirt.setQuantity(20);
+        tshirt2.setSize("large");
+        tshirt2.setColor("blue");
+        tshirt2.setDescription("pretty shirt");
+        tshirt2.setPrice(new BigDecimal("200.00"));
+        tshirt2.setQuantity(20);
 
         //Save T-shirt
 
-        tshirtRepo.save(tshirt2);
+        tshirt2=tshirtRepo.save(tshirt2);
+
+
 
         //Get all tshirts
         List<Tshirt> tshirtList = tshirtRepo.findAll();
 
+
         //Assert
-        assertEquals(tshirtList.size(), 2);
+        assertEquals(tshirtList, tshirtRepo.findAll());
 
     }
 

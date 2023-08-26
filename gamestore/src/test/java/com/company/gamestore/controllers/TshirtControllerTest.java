@@ -51,7 +51,7 @@ class TshirtControllerTest {
         inputJson = mapper.writeValueAsString(t);
 
         mockMvc.perform(
-                post("/consoles")
+                post("/tshirts")
                         .content(inputJson)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -87,9 +87,7 @@ class TshirtControllerTest {
     @Test
     void shouldDeleteTshirt() throws Exception{
         repo.save(t);
-        Tshirt t2 = new Tshirt("large","blue","pretty", new BigDecimal("499.99"),100);
-        repo.save(t);
-        mockMvc.perform(delete("/tshirts/{id}", t2.getId()))
+        mockMvc.perform(delete("/tshirts/{id}", t.getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -105,8 +103,9 @@ class TshirtControllerTest {
     @Test
     void shouldGetTshirtBySize() throws Exception{
         repo.save(t);
-        mockMvc.perform(get("/tshirts/size/{size}"))
+        mockMvc.perform(get("/consoles/manufacturer/{name}",t.getSize()))
                 .andDo(print())
                 .andExpect(status().isOk());
+
     }
 }
