@@ -40,14 +40,14 @@ class InvoiceRepoTest {
     }
 
     @Test
-    void shouldAddInvoice() throws Exception {
+    void shouldAddInvoice() {
         testInvoice = repo.save(testInvoice);
         Optional<Invoice> expected = repo.findById(testInvoice.getId());
         assertEquals(expected.get(), testInvoice);
     }
 
     @Test
-    void shouldFindInvoices() throws Exception{
+    void shouldFindInvoices() {
         testInvoice = repo.save(testInvoice);
         List<Invoice> expected = new ArrayList<>();
         expected.add(testInvoice);

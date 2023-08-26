@@ -1,14 +1,20 @@
 package com.company.gamestore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@Table(name = "invoice")
 public class Invoice {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="invoice_id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name="invoice_id")
+    private Integer invoice_id;
+
     private String name;
     private String street;
     private String city;
@@ -43,12 +49,12 @@ public class Invoice {
         this.total = total;
     }
 
-    public Long getId() {
-        return id;
+    public Integer getId() {
+        return invoice_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this.invoice_id = id;
     }
 
     public String getName() {
@@ -116,9 +122,36 @@ public class Invoice {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Invoice)) return false;
+        Invoice invoice = (Invoice) o;
+        return invoice_id == invoice.invoice_id &&
+                Objects.equals(name, invoice.name) &&
+                Objects.equals(street, invoice.street) &&
+                Objects.equals(city, invoice.city) &&
+                Objects.equals(state, invoice.state) &&
+                Objects.equals(zipcode, invoice.zipcode) &&
+                Objects.equals(item_type, invoice.item_type) &&
+                item_id == invoice.item_id &&
+                quantity == invoice.quantity &&
+                unit_price == invoice.unit_price &&
+                subtotal == invoice.subtotal &&
+                tax == invoice.tax &&
+                processing_fee == invoice.processing_fee &&
+                total == invoice.total;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(invoice_id, name, street, city, state, zipcode, item_type, item_id, quantity, unit_price, subtotal, tax, processing_fee, total);
+    }
+
+
+    @Override
     public String toString() {
         return "Invoice{" +
-                "id=" + id +
+                "id=" + invoice_id +
                 ", name='" + name + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +

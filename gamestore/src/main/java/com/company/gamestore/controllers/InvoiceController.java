@@ -25,7 +25,7 @@ public class InvoiceController {
     // Read an Invoice by ID
     @GetMapping("/{invoice_id}")
     @ResponseStatus(HttpStatus.OK)
-    public Invoice getInvoiceById(@PathVariable Long invoice_id) {
+    public Invoice getInvoiceById(@PathVariable Integer invoice_id) {
         return invoiceRepo.findById(invoice_id).orElse(null);
     }
 
@@ -46,7 +46,7 @@ public class InvoiceController {
     // Update an Invoice by ID
     @PutMapping("/{invoice_id}")
     @ResponseStatus(HttpStatus.OK)
-    public Invoice updateInvoice(@PathVariable Long invoice_id, @RequestBody Invoice invoice) {
+    public Invoice updateInvoice(@PathVariable Integer invoice_id, @RequestBody Invoice invoice) {
         if (invoiceRepo.existsById(invoice_id)) {
             invoice.setId(invoice_id);
             return invoiceRepo.save(invoice);
@@ -58,7 +58,7 @@ public class InvoiceController {
     // Delete an Invoice by ID
     @DeleteMapping("/{invoice_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteInvoice(@PathVariable Long invoice_id) {
+    public void deleteInvoice(@PathVariable Integer invoice_id) {
         invoiceRepo.deleteById(invoice_id);
     }
 }
