@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface TshirtRepo extends JpaRepository<Tshirt, Integer> {
-    List<Tshirt> findByColor(String manufacturer);
+    List<Tshirt> findByColor(String color);
     List<Tshirt> findBySize(String size);
 }
