@@ -94,7 +94,7 @@ class ConsoleControllerTest {
 
 //    Custom Query
     @Test
-    void shouldFindByAuthorId() throws Exception{
+    void shouldFindManufacturer() throws Exception{
         repo.save(c);
         mockMvc.perform(get("/consoles/manufacturer/{name}",c.getManufacturer()))
                 .andDo(print())

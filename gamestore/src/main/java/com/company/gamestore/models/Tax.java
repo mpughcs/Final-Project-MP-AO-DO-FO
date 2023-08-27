@@ -1,39 +1,33 @@
 package com.company.gamestore.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import java.math.BigDecimal;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-@Table(name = "tax")
 public class Tax {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Column(name = "state", length = 2)
     private String state;
-    private double rate;
 
-    // Constructors
+    @Column(name = "rate", precision = 8, scale = 2, nullable = false)
+    private BigDecimal rate;
+
+    // Constructors, getters, setters, and other methods
+
+    // Default constructor
     public Tax() {
     }
 
-    public Tax(String state, double rate) {
+    // Constructor with parameters
+    public Tax(String state, BigDecimal rate) {
         this.state = state;
         this.rate = rate;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    // Getters and setters
     public String getState() {
         return state;
     }
@@ -42,21 +36,11 @@ public class Tax {
         this.state = state;
     }
 
-    public double getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
+    public void setRate(BigDecimal rate) {
         this.rate = rate;
-    }
-
-    // Override toString method for better debugging and logging
-    @Override
-    public String toString() {
-        return "Tax{" +
-                "id=" + id +
-                ", state='" + state + '\'' +
-                ", rate=" + rate +
-                '}';
     }
 }
