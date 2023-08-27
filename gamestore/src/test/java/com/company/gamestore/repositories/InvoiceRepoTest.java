@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,21 +19,13 @@ class InvoiceRepoTest {
     @Autowired
     private InvoiceRepo repo;
 
-    Invoice testInvoice = new Invoice(
-            "John Doe",
-            "123 Elm St",
-            "Springfield",
-            "IL",
-            "12345",
-            "Game",
-            1,
-            3,
-            (long) 59.99,
-            (long) 179.97,
-            (long) 10.80,
-            (long) 5.00,
-            (long) 195.77
-    );
+    Invoice testInvoice = new Invoice("John Doe", "123 Main St", "Springfield", "IL", "12345", "Console", 1, 1,
+            new BigDecimal("59.99"),
+            new BigDecimal("59.99"),
+            new BigDecimal("3.60"),
+            new BigDecimal("5.00"),
+            new BigDecimal("68.59"));
+
 
     @BeforeEach
     void setUp() {
@@ -63,13 +56,15 @@ class InvoiceRepoTest {
 
     @Test
     void shouldUpdateInvoice() {
+        Invoice updated = new Invoice("John Doe Updated", "123 Main St", "Springfield", "IL", "12345", "Console", 1, 1,
+                new BigDecimal("59.99"),
+                new BigDecimal("59.99"),
+                new BigDecimal("3.60"),
+                new BigDecimal("5.00"),
+                new BigDecimal("68.59"));
+
         testInvoice = repo.save(testInvoice);
-        Invoice updated = new Invoice("Jane Smith", "456 Oak St", "Shelbyville", "IL", "67890", "Console", 2, 1,
-                (long) 59.99,
-                (long) 179.97,
-                (long) 10.80,
-                (long) 5.00,
-                (long) 195.77);
+
         updated.setId(testInvoice.getId());
         repo.save(updated);
         assertEquals(updated, repo.findById(testInvoice.getId()).get());

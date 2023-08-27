@@ -3,6 +3,7 @@ package com.company.gamestore.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -12,28 +13,10 @@ public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name="invoice_id")
-    private Integer invoice_id;
+    @Column(name="invoice_id")
+    private int id;
 
-    private String name;
-    private String street;
-    private String city;
-    private String state;
-    private String zipcode;
-    private String item_type;
-    private Integer item_id;
-    private Integer quantity;
-    private Long unit_price;
-
-    private Long subtotal;
-    private Long tax;
-    private Long processing_fee;
-    private Long total;
-
-    public Invoice() {
-    }
-
-    public Invoice(String name, String street, String city, String state, String zipcode, String item_type, Integer item_id, Integer quantity, Long unit_price, Long subtotal, Long tax, Long processing_fee, Long total) {
+    public Invoice(String name, String street, String city, String state, String zipcode, String item_type, Integer item_id, Integer quantity, BigDecimal unit_price, BigDecimal subtotal, BigDecimal tax, BigDecimal processing_fee, BigDecimal total) {
         this.name = name;
         this.street = street;
         this.city = city;
@@ -49,12 +32,29 @@ public class Invoice {
         this.total = total;
     }
 
-    public Integer getId() {
-        return invoice_id;
+    private String name;
+    private String street;
+    private String city;
+    private String state;
+    private String zipcode;
+    private String item_type;
+    private Integer item_id;
+    private Integer quantity;
+    private BigDecimal unit_price;
+    private BigDecimal subtotal;
+    private BigDecimal tax;
+    private BigDecimal processing_fee;
+    private BigDecimal total;
+
+    public Invoice() {
     }
 
-    public void setId(Integer id) {
-        this.invoice_id = id;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -89,27 +89,27 @@ public class Invoice {
         this.state = state;
     }
 
-    public String getZip() {
+    public String getZipcode() {
         return zipcode;
     }
 
-    public void setZip(String zipcode) {
+    public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
 
-    public String getItemType() {
+    public String getItem_type() {
         return item_type;
     }
 
-    public void setItemType(String item_type) {
+    public void setItem_type(String item_type) {
         this.item_type = item_type;
     }
 
-    public Integer getItemId() {
+    public Integer getItem_id() {
         return item_id;
     }
 
-    public void setItemId(Integer item_id) {
+    public void setItem_id(Integer item_id) {
         this.item_id = item_id;
     }
 
@@ -121,50 +121,56 @@ public class Invoice {
         this.quantity = quantity;
     }
 
+    public BigDecimal getUnit_price() {
+        return unit_price;
+    }
+
+    public void setUnit_price(BigDecimal unit_price) {
+        this.unit_price = unit_price;
+    }
+
+    public BigDecimal getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public BigDecimal getTax() {
+        return tax;
+    }
+
+    public void setTax(BigDecimal tax) {
+        this.tax = tax;
+    }
+
+    public BigDecimal getProcessing_fee() {
+        return processing_fee;
+    }
+
+    public void setProcessing_fee(BigDecimal processing_fee) {
+        this.processing_fee = processing_fee;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Invoice)) return false;
         Invoice invoice = (Invoice) o;
-        return invoice_id == invoice.invoice_id &&
-                Objects.equals(name, invoice.name) &&
-                Objects.equals(street, invoice.street) &&
-                Objects.equals(city, invoice.city) &&
-                Objects.equals(state, invoice.state) &&
-                Objects.equals(zipcode, invoice.zipcode) &&
-                Objects.equals(item_type, invoice.item_type) &&
-                item_id == invoice.item_id &&
-                quantity == invoice.quantity &&
-                unit_price == invoice.unit_price &&
-                subtotal == invoice.subtotal &&
-                tax == invoice.tax &&
-                processing_fee == invoice.processing_fee &&
-                total == invoice.total;
+        return id == invoice.id && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(item_type, invoice.item_type) && Objects.equals(item_id, invoice.item_id) && Objects.equals(quantity, invoice.quantity) && Objects.equals(unit_price, invoice.unit_price) && Objects.equals(subtotal, invoice.subtotal) && Objects.equals(tax, invoice.tax) && Objects.equals(processing_fee, invoice.processing_fee) && Objects.equals(total, invoice.total);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(invoice_id, name, street, city, state, zipcode, item_type, item_id, quantity, unit_price, subtotal, tax, processing_fee, total);
-    }
-
-
-    @Override
-    public String toString() {
-        return "Invoice{" +
-                "id=" + invoice_id +
-                ", name='" + name + '\'' +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zipcode='" + zipcode + '\'' +
-                ", item_type='" + item_type + '\'' +
-                ", item_id=" + item_id +
-                ", quantity=" + quantity +
-                ", unit_price=" + unit_price +
-                ", subtotal=" + subtotal +
-                ", tax=" + tax +
-                ", processing_fee=" + processing_fee +
-                ", total=" + total +
-                '}';
+        return Objects.hash(id, name, street, city, state, zipcode, item_type, item_id, quantity, unit_price, subtotal, tax, processing_fee, total);
     }
 }
