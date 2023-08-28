@@ -198,6 +198,7 @@ public class ServiceLayer {
         BigDecimal total = BigDecimal.ZERO;
         BigDecimal taxRate = BigDecimal.ZERO;
 
+//        Make sure item is in stock, set unit price, and subtract quantity from stock
         if (tableName.equals("Game")) {
             Game game = gameRepo.findById(itemId).orElse(null);
             BigDecimal unitPrice = BigDecimal.valueOf(game.getPrice().doubleValue());
@@ -239,15 +240,11 @@ public class ServiceLayer {
         toReturn.setSubtotal(total.setScale(2, BigDecimal.ROUND_HALF_EVEN));
 
 // Adding tax
-//        System.out.println("total: " + total);
         taxRate = taxRepo.findByState(ivm.getState()).getRate();
-//        System.out.println("tax rate: " + taxRate);
         toReturn.setTax(total.multiply(taxRate).setScale(2, BigDecimal.ROUND_HALF_EVEN));
 
-// Calculate total after tax
+// add tax to total
         total = total.multiply(BigDecimal.ONE.add(taxRate));
-//        System.out.println("total after tax: " + total);
-        toReturn.setTotal(total.setScale(2, BigDecimal.ROUND_HALF_EVEN));
 
 // Adding processing fee
         processingFee = feeRepo.findByProductType(tableName).getFee();
