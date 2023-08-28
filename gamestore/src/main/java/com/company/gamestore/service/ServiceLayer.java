@@ -179,19 +179,21 @@ public class ServiceLayer {
     public Invoice createInvoice(InvoiceViewModel ivm) {
         System.out.println("entered create invoice");
         Invoice toReturn = new Invoice();
+        String tableName = ivm.getItemType();
+        int itemId = ivm.getItemId();
+        int quantity = ivm.getQuantity();
+//        cast all shared fields to invoice object
         toReturn.setName(ivm.getCustomerName());
         toReturn.setStreet(ivm.getStreet());
         toReturn.setCity(ivm.getCity());
         toReturn.setState(ivm.getState());
         toReturn.setZipcode(ivm.getZipcode());
-        toReturn.setItem_type(ivm.getItemType());
-        toReturn.setItem_id(ivm.getItemId());
-        toReturn.setQuantity(ivm.getQuantity());
+        toReturn.setItem_type(tableName);
+        toReturn.setItem_id(itemId);
+        toReturn.setQuantity(quantity);
 
-        String tableName = ivm.getItemType();
-        int itemId = ivm.getItemId();
-        System.out.println("item id: " + itemId);
-        int quantity = ivm.getQuantity();
+//        get table name, item id, and quantity from ivm for processing
+
         BigDecimal processingFee = BigDecimal.ZERO;
         BigDecimal total = BigDecimal.ZERO;
         BigDecimal taxRate = BigDecimal.ZERO;
@@ -233,32 +235,31 @@ public class ServiceLayer {
             tshirtRepo.save(tshirt);
             total = total.add(unitPrice.multiply(BigDecimal.valueOf(quantity)));
         }
+// Set subtotal
+        toReturn.setSubtotal(total.setScale(2, BigDecimal.ROUND_HALF_EVEN));
 
-        // Set subtotal
-        toReturn.setSubtotal(total);
-
-        // Adding tax
-        System.out.println("total: " + total);
-
+// Adding tax
+//        System.out.println("total: " + total);
         taxRate = taxRepo.findByState(ivm.getState()).getRate();
-        System.out.println("tax rate: " + taxRate);
-        toReturn.setTax(total.multiply(taxRate));
+//        System.out.println("tax rate: " + taxRate);
+        toReturn.setTax(total.multiply(taxRate).setScale(2, BigDecimal.ROUND_HALF_EVEN));
 
+// Calculate total after tax
+        total = total.multiply(BigDecimal.ONE.add(taxRate));
+//        System.out.println("total after tax: " + total);
+        toReturn.setTotal(total.setScale(2, BigDecimal.ROUND_HALF_EVEN));
 
-        // Maintain 2 decimal places, maintain precision
-        total = total.multiply(BigDecimal.ONE.add(taxRate)).setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        System.out.println("total after tax: " + total);
-
-        // Adding processing fee
+// Adding processing fee
         processingFee = feeRepo.findByProductType(tableName).getFee();
 
         if (quantity > 10) {
             processingFee = processingFee.add(BigDecimal.valueOf(15.49));
         }
+        toReturn.setProcessing_fee(processingFee.setScale(2, BigDecimal.ROUND_HALF_EVEN));
 
-        toReturn.setProcessing_fee(processingFee);
         total = total.add(processingFee);
-        toReturn.setTotal(total);
+
+        toReturn.setTotal(total.setScale(2, BigDecimal.ROUND_HALF_EVEN));
 
         return toReturn;
     }
