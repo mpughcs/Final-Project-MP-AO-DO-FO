@@ -1,3 +1,29 @@
+type Console {
+    id: ID!
+    model: String!
+    manufacturer: String!
+    memoryAmount: String!
+    processor: String!
+    price: Float!
+    quantity: Int!
+}
+
+type Game{
+    game_id: ID!
+    title: String!
+    esrb_rating: String!
+    description: String!
+    price: Float!
+    quantity: Int!
+}
+
 type Query {
-    dummy: String
+    getConsoles: [Console!]
+    getConsoleByManufacturer(manufacturer: String!): [Console!]
+    getConsoleByID(id: ID!): Console
+
+#    Game queries
+    getGames: [Game!]
+    getGameByTitle(title: String!): [Game!]
+    getGameByID(game_id: ID!): Game
 }
