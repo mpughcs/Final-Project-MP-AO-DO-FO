@@ -10,7 +10,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.TransactionSystemException;
+import org.springframework.web.util.NestedServletException;
 
+import javax.persistence.RollbackException;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,7 +58,6 @@ class ConsoleControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
     }
-
 //    read tests
     @Test
     void shouldGetConsoles() throws Exception{
@@ -101,6 +103,20 @@ class ConsoleControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+
+    @Test
+    void shouldFailToAddInvalidConsole() throws Exception {
+        String invalidInputJson = "{\"moel\":\"XboxOne\",\"manufacturer\":\"Microsoft\",\"memory_amount\":\"16gb\",\"processor\":\"I7\",\"price\":499.99,\"quantity\":100}";
+        mockMvc.perform(
+                        post("/consoles")
+                                .content(invalidInputJson)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+
 
 
 
