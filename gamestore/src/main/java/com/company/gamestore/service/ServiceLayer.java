@@ -145,10 +145,15 @@ import com.company.gamestore.repositories.*;
 import com.company.gamestore.viewModel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
+//Best practice, don't put any logic in controllers, put it in service layer.
 @Component
 public class ServiceLayer {
     private InvoiceRepo invoiceRepo;
@@ -260,5 +265,51 @@ public class ServiceLayer {
 
         return toReturn;
     }
+
+
+
+
+
+//    Console logic
+
+    public Console addConsole(Console toAdd){
+        return consoleRepo.save(toAdd);
+    }
+    public Console findConsoleById(int id) {
+        Optional<Console> console = consoleRepo.findById(id);
+        return console.isPresent() ? console.get() : null;
+    }
+
+    public List<Console> findAllConsoles() {
+
+        return consoleRepo.findAll();
+    }
+
+    public void updateConsole(Console console) {
+
+        consoleRepo.save(console);
+    }
+
+    public void removeConsole(int id) {
+
+        consoleRepo.deleteById(id);
+    }
+    public List<Console> findConsoleByManufacturer( String name){
+        List<Console> toReturn = new ArrayList<>();
+        for(Console console : consoleRepo.findAll()){
+            if (console.getManufacturer().equals(name)){
+                toReturn.add(console);
+            }
+        }
+        return toReturn;
+    }
+
+
+
+
+
+
+
+
 }
 
