@@ -4,7 +4,6 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/authorization-service/pom.xml" />
         <option value="$PROJECT_DIR$/gamestore/pom.xml" />
       </list>
     </option>
