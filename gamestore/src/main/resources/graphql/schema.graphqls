@@ -11,10 +11,11 @@ type Console {
 type Game{
     game_id: ID!
     title: String!
-    esrb_rating: String!
+    rating: String!
     description: String!
     price: Float!
     quantity: Int!
+    studio: String!
 }
 
 type Query {
@@ -26,4 +27,6 @@ type Query {
     getGames: [Game!]
     getGameByTitle(title: String!): [Game!]
     getGameByID(game_id: ID!): Game
+    getGameByRating(rating: String!): [Game!]
+    getGameByStudio(studio: String!): [Game!]
 }

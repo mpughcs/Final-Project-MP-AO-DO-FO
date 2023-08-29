@@ -67,8 +67,18 @@ public class GraphController {
         return gameRepo.findByTitle(title);
     }
 
+    @QueryMapping
+    public List<Game> getGameByRating(@Argument String rating){
+        return gameRepo.findByRating(rating);
+    }
+
+    @QueryMapping
+    public List<Game> getGameByStudio(@Argument String studio){
+        return gameRepo.findByStudio(studio);
+    }
+
 //  TODO: Get a Game by ESRB rating
-//    TODO: Get a Game by Studio
+//  TODO: Get a Game by Studio
 
 
 

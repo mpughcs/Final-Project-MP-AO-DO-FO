@@ -16,7 +16,8 @@ public class Game {
     private int game_id;
 
     private String title;
-    private String esrb_rating;
+    @Column(name = "esrb_rating")
+    private String rating;
     private String description;
     private BigDecimal price;
     private String studio;
@@ -26,9 +27,9 @@ public class Game {
     public Game() {
     }
 
-    public Game(String title, String esrb_rating, String description, BigDecimal price, String studio, int quantity) {
+    public Game(String title, String rating, String description, BigDecimal price, String studio, int quantity) {
         this.title = title;
-        this.esrb_rating = esrb_rating;
+        this.rating = rating;
         this.description = description;
         this.price = price;
         this.studio = studio;
@@ -52,12 +53,12 @@ public class Game {
         this.title = title;
     }
 
-    public String getEsrb_rating() {
-        return esrb_rating;
+    public String getRating() {
+        return rating;
     }
 
-    public void setEsrb_rating(String esrb_rating) {
-        this.esrb_rating = esrb_rating;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public String getDescription() {
@@ -98,7 +99,7 @@ public class Game {
         return "Game{" +
                 "game_id=" + game_id +
                 ", title='" + title + '\'' +
-                ", esrb_rating='" + esrb_rating + '\'' +
+                ", esrb_rating='" + rating + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", studio='" + studio + '\'' +
