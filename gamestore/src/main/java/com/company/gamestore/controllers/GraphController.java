@@ -11,23 +11,6 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-//Your project must support GraphQL queries to retrieve the following information:
-//
-//        Get all Games
-//
-//        Get a Game by ID
-//
-//        Get a Game by Title
-//
-//        Get a Game by ESRB rating
-//
-//        Get a Game by Studio
-//
-//        Get all Consoles
-//
-//        Get a Console by ID
-//
-//        Get a Console by Manufacturer
 
 @Controller
 public class GraphController {
@@ -77,8 +60,6 @@ public class GraphController {
         return gameRepo.findByStudio(studio);
     }
 
-//  TODO: Get a Game by ESRB rating
-//  TODO: Get a Game by Studio
 
 
 
