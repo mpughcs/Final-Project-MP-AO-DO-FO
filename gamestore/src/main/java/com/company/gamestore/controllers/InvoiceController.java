@@ -20,9 +20,6 @@ public class InvoiceController {
     @Autowired
     ServiceLayer serviceLayer;
 
-
-
-
 //    endpoint to make a purchase
 
     @PostMapping("/purchase")
