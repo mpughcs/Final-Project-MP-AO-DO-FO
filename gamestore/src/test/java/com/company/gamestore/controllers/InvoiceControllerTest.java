@@ -128,7 +128,7 @@ class InvoiceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(new ObjectMapper().writeValueAsString(sampleInvoice())));
     }
-    
+
     @Test
     void shouldDeleteInvoice() throws Exception {
         doNothing().when(invoiceRepo).deleteById(1);

@@ -2,6 +2,10 @@ package com.company.gamestore.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -31,12 +35,17 @@ public class Invoice {
         this.processing_fee = processing_fee;
         this.total = total;
     }
-
+    @NotEmpty(message = "Name cannot be blank")
     private String name;
+    @NotEmpty(message = "Street cannot be blank")
     private String street;
+    @NotEmpty(message = "City cannot be blank")
     private String city;
+    @NotEmpty(message = "State cannot be blank")
     private String state;
+    @NotEmpty(message = "Zipcode cannot be blank")
     private String zipcode;
+    @NotEmpty(message = "Item type cannot be blank")
     private String item_type;
     private Integer item_id;
     private Integer quantity;

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,17 +22,16 @@ public class InvoiceController {
     ServiceLayer serviceLayer;
 
 //    endpoint to make a purchase
-
     @PostMapping("/purchase")
     @ResponseStatus(HttpStatus.CREATED)
-    public Invoice purchase(@RequestBody InvoiceViewModel ivm){
+    public Invoice purchase(@RequestBody @Valid InvoiceViewModel ivm){
         return invoiceRepo.save(serviceLayer.createInvoice(ivm));
     }
     // Create Invoice
     // should update to use service layer instead of repo directly
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Invoice createInvoice(@RequestBody Invoice invoice) {
+    public Invoice createInvoice(@RequestBody @Valid Invoice invoice) {
         return invoiceRepo.save(invoice);
     }
 
@@ -59,7 +59,7 @@ public class InvoiceController {
     // Update an Invoice by ID
     @PutMapping("/{invoice_id}")
     @ResponseStatus(HttpStatus.OK)
-    public Invoice updateInvoice(@PathVariable Integer invoice_id, @RequestBody Invoice invoice) {
+    public Invoice updateInvoice(@PathVariable Integer invoice_id, @RequestBody @Valid Invoice invoice) {
         if (invoiceRepo.existsById(invoice_id)) {
             invoice.setId(invoice_id);
             return invoiceRepo.save(invoice);
