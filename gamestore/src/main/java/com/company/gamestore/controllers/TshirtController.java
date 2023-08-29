@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public class TshirtController {
     //Create
     @PostMapping("/tshirts")
     @ResponseStatus(HttpStatus.CREATED)
-    public Tshirt addTshirt(@RequestBody Tshirt shirt) {
+    public Tshirt addTshirt(@RequestBody @Valid Tshirt shirt) {
         return repo.save(shirt);
     }
 
