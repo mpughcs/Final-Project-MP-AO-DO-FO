@@ -68,6 +68,7 @@ class ConsoleControllerTest {
 
     @Test
     void shouldGetConsoleById() throws Exception {
+        c=repo.save(c);
         mockMvc.perform(get("/consoles/{id}",c.getId()))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -115,10 +116,6 @@ class ConsoleControllerTest {
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
-
-
-
-
 
 
 
