@@ -305,6 +305,39 @@ public class ServiceLayer {
     }
 
 
+    //Tshirt Logic
+
+    public Tshirt addTshirt(Tshirt tshirt){
+        return tshirtRepo.save(tshirt);
+    }
+
+    public Tshirt getTshirtById(int id){
+        Optional<Tshirt> tshirt = tshirtRepo.findById(id);
+        return tshirt.orElse(null); //If Tshirt exists, return it, or return null
+    }
+    //Return all, even if that all is null
+    public List<Tshirt> getTshirts(){
+        return tshirtRepo.findAll();
+    }
+
+    public void updateTshirt(Tshirt tshirt){
+        tshirtRepo.save(tshirt);
+    }
+
+    public void deleteTshirt(int id){
+        tshirtRepo.deleteById(id);
+    }
+    //Return the entire list since if none exist it just won't return anything
+    public List<Tshirt> getTshirtByColor(String color){
+       return tshirtRepo.findByColor(color);
+    }
+    //Same as above
+    public List<Tshirt> getTshirtBySize(String size){
+        return tshirtRepo.findBySize(size);
+    }
+
+
+
 
 
 
