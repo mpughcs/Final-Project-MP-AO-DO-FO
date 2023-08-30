@@ -302,7 +302,6 @@ public class ServiceLayer {
         return toReturn;
     }
 
-
     //Tshirt Logic
 
     public Tshirt addTshirt(Tshirt tshirt){
@@ -367,6 +366,7 @@ public class ServiceLayer {
     public List<Game> getGameByTitle(String title){
         return gameRepo.findByTitle(title);
     }
+
 
 
 
