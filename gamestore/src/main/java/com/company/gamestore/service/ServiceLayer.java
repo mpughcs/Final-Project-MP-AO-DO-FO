@@ -208,13 +208,11 @@ public class ServiceLayer {
             Game game = gameRepo.findById(itemId).orElse(null);
             BigDecimal unitPrice = BigDecimal.valueOf(game.getPrice().doubleValue());
             toReturn.setUnit_price(unitPrice);
-
             if (game.getQuantity() < quantity) {
                 throw new IllegalArgumentException("Not enough games in stock");
             }
             game.setQuantity(game.getQuantity() - quantity);
             gameRepo.save(game);
-
             total = total.add(unitPrice.multiply(BigDecimal.valueOf(quantity)));
         }
         if (tableName.equals("Console")) {
@@ -335,6 +333,41 @@ public class ServiceLayer {
     public List<Tshirt> getTshirtBySize(String size){
         return tshirtRepo.findBySize(size);
     }
+
+//    Game Logic
+    public Game addGame(Game game){
+        return gameRepo.save(game);
+    }
+
+    public Game getGameById(int id){
+        Optional<Game> game = gameRepo.findById(id);
+        return game.orElse(null); //If Game exists, return it, or return null
+    }
+    //Return all, even if that all is null
+    public List<Game> getGames(){
+        return gameRepo.findAll();
+    }
+
+    public void updateGame(Game game){
+        gameRepo.save(game);
+    }
+
+    public void deleteGame(int id){
+        gameRepo.deleteById(id);
+    }
+    //Return the entire list since if none exist it just won't return anything
+    public List<Game> getGameByStudio(String studio){
+        return gameRepo.findByStudio(studio);
+    }
+    //Same as above
+    public List<Game> getGameByEsrbRating(String esrbRating){
+        return gameRepo.findByRating(esrbRating);
+    }
+    //Same as above
+    public List<Game> getGameByTitle(String title){
+        return gameRepo.findByTitle(title);
+    }
+
 
 
 

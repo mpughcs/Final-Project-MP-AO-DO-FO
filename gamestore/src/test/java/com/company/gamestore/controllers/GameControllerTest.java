@@ -67,7 +67,7 @@ class GameControllerTest {
     void shouldUpdateGame() throws Exception {
         repo.save(game);
         mockMvc.perform(
-                        put("/games/{id}", game.getGame_id())
+                        put("/games/", game)
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
@@ -82,4 +82,6 @@ class GameControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
+
+
 }

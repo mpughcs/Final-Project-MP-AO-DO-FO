@@ -2,6 +2,7 @@ package com.company.gamestore.controllers;
 
 import com.company.gamestore.models.Game;
 import com.company.gamestore.repositories.GameRepo;
+import com.company.gamestore.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,42 +13,38 @@ import java.util.List;
 @RequestMapping("/games")
 public class GameController {
 
+
+
     @Autowired
-    private GameRepo gameRepo;
+    private ServiceLayer serviceLayer;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getAllGames() {
-        return gameRepo.findAll();
+        return serviceLayer.getGames();
     }
 
     @GetMapping("/{game_id}")
     @ResponseStatus(HttpStatus.OK)
-
     public Game getGameById(@PathVariable int game_id) {
-        return gameRepo.findById(game_id).orElse(null);
+        return serviceLayer.getGameById(game_id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Game createGame(@RequestBody Game game) {
-        return gameRepo.save(game);
+        return serviceLayer.addGame(game);
     }
 
-    @PutMapping("/{game_id}")
+    @PutMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Game updateGame(@PathVariable int game_id, @RequestBody Game game) {
-        if (gameRepo.existsById(game_id)) {
-            game.setGame_id(game_id);
-            return gameRepo.save(game);
-        } else {
-            return null;
-        }
+    public void updateGame(@RequestBody Game game) {
+        serviceLayer.updateGame(game);
     }
 
     @DeleteMapping("/{game_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable int game_id) {
-        gameRepo.deleteById(game_id);
+        serviceLayer.deleteGame(game_id);
     }
 }
