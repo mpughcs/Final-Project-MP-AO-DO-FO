@@ -22,7 +22,12 @@ MySQL, and Maven.
 - Create, read, update, and delete.
 - Find Invoice By Customer Name
 - Invoice has a post endpoint that accepts a view model object and generates an invoice.
-- ### Members
+
+
+
+### How to run
+
+### Members
 Frankie Ortiz, Max Pugh, Abena Aboagyewaa Ofosu, Okeke Duke
  
  

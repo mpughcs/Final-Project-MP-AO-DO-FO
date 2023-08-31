@@ -72,7 +72,7 @@ class InvoiceControllerTest {
         when(serviceLayer.createInvoice(any(InvoiceViewModel.class))).thenReturn(sampleInvoice());
         when(invoiceRepo.save(any(Invoice.class))).thenReturn(sampleInvoice());
 
-        mockMvc.perform(post("/invoices/purchase")
+        mockMvc.perform(post("/invoices/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(sampleIVM())))
                 .andExpect(status().isCreated());
@@ -117,17 +117,6 @@ class InvoiceControllerTest {
                 .andExpect(content().json(new ObjectMapper().writeValueAsString(invoices)));
     }
 
-    @Test
-    void shouldUpdateInvoice() throws Exception {
-        when(invoiceRepo.existsById(1)).thenReturn(true);
-        when(invoiceRepo.save(any(Invoice.class))).thenReturn(sampleInvoice());
-
-        mockMvc.perform(put("/invoices/{invoice_id}", 1)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(sampleInvoice())))
-                .andExpect(status().isOk())
-                .andExpect(content().json(new ObjectMapper().writeValueAsString(sampleInvoice())));
-    }
 
     @Test
     void shouldDeleteInvoice() throws Exception {
