@@ -79,7 +79,7 @@ class ConsoleControllerTest {
     void shouldUpdateConsole() throws Exception {
         repo.save(c);
         mockMvc.perform(
-                        put("/consoles/", c)
+                        put("/consoles/", c.getId())
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))

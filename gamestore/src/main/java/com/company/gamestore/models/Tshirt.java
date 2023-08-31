@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Tshirt {
     @Id
     @Column(name = "tshirt_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotEmpty(message = "Tshirt requires a size")
