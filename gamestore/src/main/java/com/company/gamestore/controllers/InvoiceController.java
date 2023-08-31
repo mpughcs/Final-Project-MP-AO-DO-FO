@@ -22,17 +22,17 @@ public class InvoiceController {
     ServiceLayer serviceLayer;
 
 //    endpoint to make a purchase
-    @PostMapping("/purchase")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Invoice purchase(@RequestBody @Valid InvoiceViewModel ivm){
-        return invoiceRepo.save(serviceLayer.createInvoice(ivm));
-    }
+//    @PostMapping("/purchase")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Invoice purchase(@RequestBody @Valid InvoiceViewModel ivm){
+//        return invoiceRepo.save(serviceLayer.createInvoice(ivm));
+//    }
     // Create Invoice
     // should update to use service layer instead of repo directly
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Invoice createInvoice(@RequestBody @Valid Invoice invoice) {
-        return invoiceRepo.save(invoice);
+    public Invoice createInvoice(@RequestBody @Valid InvoiceViewModel ivm) {
+        return invoiceRepo.save(serviceLayer.createInvoice(ivm));
     }
 
     // Read an Invoice by ID
@@ -57,16 +57,7 @@ public class InvoiceController {
     }
 
     // Update an Invoice by ID
-    @PutMapping("/{invoice_id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Invoice updateInvoice(@PathVariable Integer invoice_id, @RequestBody @Valid Invoice invoice) {
-        if (invoiceRepo.existsById(invoice_id)) {
-            invoice.setId(invoice_id);
-            return invoiceRepo.save(invoice);
-        } else {
-            return null;
-        }
-    }
+
 
     // Delete an Invoice by ID
     @DeleteMapping("/{invoice_id}")
