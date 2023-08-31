@@ -39,15 +39,15 @@ generate table of contents
 ### GraphQL:
 - User can query to get all Games, as well as by ID, Title, ESRB Rating, and Studio.
 - User can query to get all Consoles, as well as by ID and Manufacturer.
-![OpenAI Logo](images/GraphQl.png)
+![Image of GraphQL](images/GraphQL.png)
 
 
 ### Deployment
     Deployed to AWS RDS and Elastic Beanstalk
-  ![OpenAI Logo](images/GameStoreDeploy1.png)
+  ![Image of deploy](images/GameStoreDeploy1.png)
 
     Ensured smooth releases by using a CI/CD pipeline with CircleCI
-![OpenAI Logo](images/CircleCI.png)
+![Image of CircleCI](images/CircleCI.png)
 
  *Note*: To view CI/CD pipeline, please visit the CircleCI branch
 
