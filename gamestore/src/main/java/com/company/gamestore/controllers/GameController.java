@@ -47,4 +47,22 @@ public class GameController {
     public void deleteGame(@PathVariable int game_id) {
         serviceLayer.deleteGame(game_id);
     }
+
+    @GetMapping("/title/{title}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Game> getGameByTitle(@PathVariable String title) {
+        return serviceLayer.getGameByTitle(title);
+    }
+
+    @GetMapping("/rating/{rating}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Game> getGameByRating(@PathVariable String rating) {
+        return serviceLayer.getGameByEsrbRating(rating);
+    }
+
+    @GetMapping("/studio/{studio}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Game> getGameByStudio(@PathVariable String studio) {
+        return serviceLayer.getGameByStudio(studio);
+    }
 }
