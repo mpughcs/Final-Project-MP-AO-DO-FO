@@ -16,9 +16,9 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class}) //Built to handle JSR303
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ResponseEntity<List<CustomErrorResponse>> recordValidationError(MethodArgumentNotValidException e) {
+    public ResponseEntity<List<CustomErrorResponse>> gamestoreValidationError(MethodArgumentNotValidException e) {
         // BindingResult holds the validation errors
         BindingResult result = e.getBindingResult();
         // Validation errors are stored in FieldError objects
@@ -35,6 +35,29 @@ public class ControllerExceptionHandler {
         }
         // Create and return the ResponseEntity
         ResponseEntity<List<CustomErrorResponse>> responseEntity = new ResponseEntity<>(errorResponseList, HttpStatus.UNPROCESSABLE_ENTITY);
+        return responseEntity;
+    }
+
+    //Create Not Found
+
+
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseEntity<CustomErrorResponse> gamestoreIllegalError(IllegalArgumentException e){
+        CustomErrorResponse error = new CustomErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.toString(), e.getMessage());
+        error.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
+        error.setTimestamp(LocalDateTime.now());
+        ResponseEntity<CustomErrorResponse> responseEntity = new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+        return responseEntity;
+    }
+
+    @ExceptionHandler( value = ArrayIndexOutOfBoundsException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<CustomErrorResponse> gamestoreDoesNotExist(ArrayIndexOutOfBoundsException e){
+        CustomErrorResponse error = new CustomErrorResponse(HttpStatus.NOT_FOUND.toString(), e.getMessage());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setTimestamp(LocalDateTime.now());
+        ResponseEntity<CustomErrorResponse> responseEntity = new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         return responseEntity;
     }
 

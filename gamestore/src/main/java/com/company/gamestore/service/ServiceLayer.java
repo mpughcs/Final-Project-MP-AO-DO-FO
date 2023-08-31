@@ -179,7 +179,7 @@ public class ServiceLayer {
         this.gameRepo = gameRepo;
         this.feeRepo = feeRepo;
     }
-
+    //Validate item id, throw 404 (not found)
     @Transactional
     public Invoice createInvoice(InvoiceViewModel ivm) {
         System.out.println("entered create invoice");
@@ -205,7 +205,11 @@ public class ServiceLayer {
 
 //        Make sure item is in stock, set unit price, and subtract quantity from stock
         if (tableName.equals("Game")) {
+
             Game game = gameRepo.findById(itemId).orElse(null);
+            if(game == null){
+                throw new ArrayIndexOutOfBoundsException("Game does not exist");
+            }
             BigDecimal unitPrice = BigDecimal.valueOf(game.getPrice().doubleValue());
             toReturn.setUnit_price(unitPrice);
             if (game.getQuantity() < quantity) {
@@ -217,6 +221,9 @@ public class ServiceLayer {
         }
         if (tableName.equals("Console")) {
             Console console = consoleRepo.findById(itemId).orElse(null);
+            if(console == null){
+                throw new ArrayIndexOutOfBoundsException("Game does not exist");
+            }
             BigDecimal unitPrice = BigDecimal.valueOf(console.getPrice().doubleValue());
             toReturn.setUnit_price(unitPrice);
 
@@ -229,6 +236,9 @@ public class ServiceLayer {
         }
         if (tableName.equals("T-Shirt")) {
             Tshirt tshirt = tshirtRepo.findById(itemId).orElse(null);
+            if(tshirt == null){
+                throw new ArrayIndexOutOfBoundsException("Game does not exist");
+            }
             BigDecimal unitPrice = BigDecimal.valueOf(tshirt.getPrice().doubleValue());
             toReturn.setUnit_price(unitPrice);
 
@@ -265,7 +275,7 @@ public class ServiceLayer {
     }
 
 
-
+//Invoice Logic Above
 
 
 //    Console logic
