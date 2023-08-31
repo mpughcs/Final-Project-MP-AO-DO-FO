@@ -3,10 +3,7 @@ package com.company.gamestore.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -25,7 +22,7 @@ public class Tshirt {
     private String color;
     @NotEmpty(message = "Tshirt requires a description")
     private String description;
-    @NotNull
+    @NotNull(message = "Tshirt requires a price")
     @DecimalMin(value = "0.00", inclusive = true, message = "Tshirt price cannot be below $0.00")
     @DecimalMax(value = "999.99", inclusive = true, message = "Tshirt price cannot be above $999.99")
     private BigDecimal price;
