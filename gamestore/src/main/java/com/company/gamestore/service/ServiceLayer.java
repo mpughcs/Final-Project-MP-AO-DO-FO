@@ -274,6 +274,15 @@ public class ServiceLayer {
         return toReturn;
     }
 
+    public List<Invoice> getAllInvoices(){
+        return invoiceRepo.findAll();
+    }
+
+    public Invoice getInvoiceById(int id){
+        Optional<Invoice> invoice = invoiceRepo.findById(id);
+        return invoice.orElse(null);
+    }
+
 
 //Invoice Logic Above
 

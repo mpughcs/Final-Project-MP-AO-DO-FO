@@ -1,15 +1,11 @@
 package com.company.gamestore.service;
 
-import com.company.gamestore.models.Console;
-import com.company.gamestore.models.Game;
-import com.company.gamestore.models.Invoice;
-import com.company.gamestore.models.Tshirt;
-import com.company.gamestore.repositories.ConsoleRepo;
-import com.company.gamestore.repositories.GameRepo;
-import com.company.gamestore.repositories.InvoiceRepo;
-import com.company.gamestore.repositories.TshirtRepo;
+import com.company.gamestore.models.*;
+import com.company.gamestore.repositories.*;
+import com.company.gamestore.viewModel.InvoiceViewModel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.expression.spel.ast.OpAnd;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -34,15 +30,39 @@ class ServiceLayerTest {
 
     TshirtRepo tshirtRepository;
 
+    TaxRepo taxRepository;
+
+    FeeRepo feeRepository;
+
+    public void setupTax(){
+        taxRepository = mock(TaxRepo.class);
+        Tax tax = new Tax();
+        tax.setState("CA");
+        tax.setRate(new BigDecimal("0.06"));
+        doReturn(tax).when(taxRepository).save(tax);
+        doReturn(Optional.of(tax)).when(taxRepository).findById("CA");
+    }
+
+
     //Before
     @BeforeEach
     public void setUp(){
+//        clearRepos();
         setUpConsoleRepository();
         setUpGameRepository();
         setUpTshirtRepository();
         setUpInvoiceRepo();
+        setupTax();
 
+        serviceLayer = new ServiceLayer( invoiceRepository, consoleRepository, tshirtRepository, taxRepository, gameRepository, feeRepository);
     }
+
+//    public void clearRepos(){
+//        consoleRepository.deleteAll();
+//        gameRepository.deleteAll();
+//        tshirtRepository.deleteAll();
+//        invoiceRepository.deleteAll();
+//    }
 
 
     //Helper/Builders
@@ -77,6 +97,7 @@ class ServiceLayerTest {
         doReturn(tshirtList).when(tshirtRepository).findAll(); //Return tshirtlist (fake repo) when get all tshirts is called
 
     }
+
 
     public void setUpGameRepository(){
         gameRepository = mock(GameRepo.class);
@@ -119,7 +140,6 @@ class ServiceLayerTest {
         console.setMemoryAmount("tooMuch");
 
         Console console1 = new Console();
-        console1.setId(1);
         console1.setManufacturer("Timmy");
         console1.setPrice(new BigDecimal(100));
         console1.setQuantity(2);
@@ -169,13 +189,90 @@ class ServiceLayerTest {
         invoice1.setTotal(new BigDecimal(27));
         invoice1.setUnit_price(new BigDecimal(25));
         invoice1.setZipcode("78706");
-
         List<Invoice> invoices = new ArrayList<>();
         invoices.add(invoice);
-
         doReturn(invoice).when(invoiceRepository).save(invoice1);
         doReturn(Optional.of(invoice)).when(invoiceRepository).findById(1);
         doReturn(invoices).when(invoiceRepository).findAll();
+    }
+
+
+    @Test
+    void shouldSaveConsole() throws Exception {
+        Console expected = new Console();
+        expected.setId(1);
+        expected.setManufacturer("Timmy");
+        expected.setPrice(new BigDecimal(100));
+        expected.setQuantity(2);
+        expected.setModel("firstOne");
+        expected.setProcessor("aOne");
+        expected.setMemoryAmount("tooMuch");
+
+        Console c = new Console();
+        c.setManufacturer("Timmy");
+        c.setPrice(new BigDecimal(100));
+        c.setQuantity(2);
+        c.setModel("firstOne");
+        c.setProcessor("aOne");
+        c.setMemoryAmount("tooMuch");
+
+        c = serviceLayer.addConsole(c);
+        assertEquals(expected, c);
 
     }
+
+    @Test
+    public void shouldSaveTshirt(){
+         Tshirt tshirtExpected = new Tshirt();
+         tshirtExpected.setColor("red");
+         tshirtExpected.setPrice(new BigDecimal(5));
+         tshirtExpected.setId(1);
+         tshirtExpected.setQuantity(5);
+         tshirtExpected.setSize("medium");
+         tshirtExpected.setDescription("A cool red shirt");
+
+         Tshirt tshirt = new Tshirt();
+         tshirt.setColor("red");
+         tshirt.setPrice(new BigDecimal(5));
+         tshirt.setQuantity(5);
+         tshirt.setSize("medium");
+         tshirt.setDescription("A cool red shirt");
+
+         tshirt = serviceLayer.addTshirt(tshirt);
+
+         assertEquals(tshirtExpected, tshirt);
+    }
+
+    @Test
+    public void shouldSaveGame(){
+        Game gameExpected = new Game();
+        gameExpected.setDescription("A game");
+        gameExpected.setGame_id(1);
+        gameExpected.setPrice(new BigDecimal(3));
+        gameExpected.setQuantity(2);
+        gameExpected.setRating("Great!");
+        gameExpected.setStudio("nVidia");
+        gameExpected.setTitle("The Best Game");
+
+        Game game1 = new Game();
+        game1.setDescription("A game");
+        game1.setPrice(new BigDecimal(3));
+        game1.setQuantity(2);
+        game1.setRating("Great!");
+        game1.setStudio("nVidia");
+        game1.setTitle("The Best Game");
+
+        game1 = serviceLayer.addGame(game1);
+
+        assertEquals(gameExpected, game1);
+
+    }
+
+
+
+
+
+
+
+
 }

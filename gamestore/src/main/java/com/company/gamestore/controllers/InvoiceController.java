@@ -46,7 +46,7 @@ public class InvoiceController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Invoice> getAllInvoices() {
-        return invoiceRepo.findAll();
+        return serviceLayer.getAllInvoices();
     }
 
     // Find Invoices by Customer Name

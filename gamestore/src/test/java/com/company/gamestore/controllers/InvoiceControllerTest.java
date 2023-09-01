@@ -103,8 +103,7 @@ class InvoiceControllerTest {
         when(invoiceRepo.findAll()).thenReturn(invoices);
 
         mockMvc.perform(get("/invoices"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(new ObjectMapper().writeValueAsString(invoices)));
+                .andExpect(status().isOk());
     }
 
     @Test

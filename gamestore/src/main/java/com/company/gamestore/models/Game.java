@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
@@ -105,5 +106,18 @@ public class Game {
                 ", studio='" + studio + '\'' +
                 ", quantity=" + quantity +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game)) return false;
+        Game game = (Game) o;
+        return game_id == game.game_id && quantity == game.quantity && Objects.equals(title, game.title) && Objects.equals(rating, game.rating) && Objects.equals(description, game.description) && Objects.equals(price, game.price) && Objects.equals(studio, game.studio);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(game_id, title, rating, description, price, studio, quantity);
     }
 }
