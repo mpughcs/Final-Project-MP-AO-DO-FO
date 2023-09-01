@@ -30,7 +30,7 @@ public class GraphController {
         return consoleRepo.findByManufacturer(manufacturer);
     }
     @QueryMapping
-    public Console getConsoleById(@Argument int id){
+    public Console getConsoleByID(@Argument(name = "id") int id) {
         return consoleRepo.findById(id).orElse(null);
     }
 
@@ -41,10 +41,9 @@ public class GraphController {
         return gameRepo.findAll();
     }
     @QueryMapping
-    public Game getGameById(@Argument int id){
-        return gameRepo.findById(id).orElse(null);
+    public Game getGameByID(@Argument(name = "game_id") int game_id) {
+        return gameRepo.findById(game_id).orElse(null);
     }
-
     @QueryMapping
     public List<Game> getGameByTitle(@Argument String title){
         return gameRepo.findByTitle(title);

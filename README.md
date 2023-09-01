@@ -3,7 +3,6 @@
 This projects implements a game store inventory using Java JPA, Spring boot,
 MySQL, and Maven. 
 
-generate table of contents
 * [Game Store API](#game-store-api)
   * [Description](#description)
   * [Technologies](#technologies)
@@ -190,7 +189,7 @@ generate table of contents
     insert into fee (product_type, fee) values 
     ('Console', 14.99),
     ('T-Shirt', 1.98),
-    ('Game', 1.49); ```  
+    ('Game', 1.49);  
 8. Run the project in intellij  
    **IMPORTANT**: For desired functionality, please enter data into the database using Insomnia rather
    than querying to avoid primary key errors.
@@ -198,7 +197,7 @@ generate table of contents
 ### Contributions
 Frankie Ortiz, Max Pugh, Abena Aboagyewaa Ofosu, Okeke Duke
 
-Project Mangaged with Trello:
+Project Managed with Trello:
 ![Image of TrelloBoard](images/trello.png)
 
  
