@@ -39,7 +39,7 @@ public class InvoiceController {
     @GetMapping("/{invoice_id}")
     @ResponseStatus(HttpStatus.OK)
     public Invoice getInvoiceById(@PathVariable Integer invoice_id) {
-        return invoiceRepo.findById(invoice_id).orElse(null);
+        return serviceLayer.getInvoiceById(invoice_id);
     }
 
     // Read all Invoices
@@ -53,7 +53,7 @@ public class InvoiceController {
     @GetMapping("/customer/{name}")
     @ResponseStatus(HttpStatus.OK)
     public List<Invoice> getInvoicesByCustomerName(@PathVariable String name) {
-        return invoiceRepo.findByName(name);
+        return serviceLayer.getInvoiceByCustomer(name);
     }
 
     // Update an Invoice by ID
@@ -63,6 +63,6 @@ public class InvoiceController {
     @DeleteMapping("/{invoice_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteInvoice(@PathVariable Integer invoice_id) {
-        invoiceRepo.deleteById(invoice_id);
+        serviceLayer.deleteInvoiceById(invoice_id);
     }
 }

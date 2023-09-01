@@ -282,6 +282,13 @@ public class ServiceLayer {
         Optional<Invoice> invoice = invoiceRepo.findById(id);
         return invoice.orElse(null);
     }
+    public List<Invoice> getInvoiceByCustomer(String name){
+        return invoiceRepo.findByName(name);
+    }
+
+    public void deleteInvoiceById(int id){
+        invoiceRepo.deleteById(id);
+    }
 
 
 //Invoice Logic Above
